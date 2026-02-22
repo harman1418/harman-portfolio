@@ -113,9 +113,30 @@ const App = () => {
                             Cybersecurity professional with hands-on experience in live operations, vulnerability assessments, and incident response. Proficient in OWASP Top 10 testing and network scanning using Nmap, Burp Suite, Metasploit, and Kali Linux.
                         </p>
 
-                        <div style={{ display: 'flex', gap: '20px', marginTop: '30px' }}>
+                        <div style={{ display: 'flex', gap: '20px', marginTop: '30px', alignItems: 'center' }}>
                             <motion.a whileHover={{ scale: 1.1 }} href="https://github.com/harman1418" target="_blank" rel="noreferrer" style={{ color: '#00ff00' }}><Github size={30} /></motion.a>
                             <motion.a whileHover={{ scale: 1.1 }} href="https://linkedin.com/in/harmanjotes" target="_blank" rel="noreferrer" style={{ color: '#00ff00' }}><Linkedin size={30} /></motion.a>
+
+                            {/* --- NEW RESUME BUTTON --- */}
+                            <motion.a
+                                whileHover={{ scale: 1.05, backgroundColor: 'rgba(0, 255, 0, 0.1)' }}
+                                href="/Harmanjot Resume.pdf"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{
+                                    color: '#00ff00',
+                                    border: '1px solid #00ff00',
+                                    padding: '8px 15px',
+                                    borderRadius: '4px',
+                                    textDecoration: 'none',
+                                    fontSize: '0.9rem',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '8px',
+                                    marginLeft: '10px'
+                                }}>
+                                <Terminal size={16} /> View_Resume.pdf
+                            </motion.a>
                         </div>
                     </motion.div>
 
