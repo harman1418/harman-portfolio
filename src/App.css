@@ -27,9 +27,13 @@ body, html {
 @keyframes scrollUp { 0% { transform: translateY(0); } 100% { transform: translateY(-50%); } }
 
 /* Custom Scrollbar */
-::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar { width: 10px; height: 5px; }
 ::-webkit-scrollbar-track { background: #050505; }
 ::-webkit-scrollbar-thumb { background: #00ff00; border-radius: 5px; }
+
+/* Hide scrollbar for swipeable nav */
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
 /* Glowing elements */
 .glow-text { text-shadow: 0 0 8px rgba(0, 255, 0, 0.6); }
@@ -51,13 +55,14 @@ section {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: stretch; /* Makes both boxes the same height */
+  align-items: stretch;
   gap: 40px;
   width: 100%;
 }
 .contact-box {
-  flex: 1; /* Forces both boxes to take up exactly 50% of the space */
-  min-width: 0; /* Prevents text overflow from breaking the flexbox */
+  flex: 1;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 /* Nav Styles & Cursor */
@@ -72,6 +77,7 @@ input, textarea {
   padding: 12px; font-family: inherit; width: 100%; box-sizing: border-box; margin-bottom: 15px; outline: none;
 }
 input:focus, textarea:focus { box-shadow: 0 0 15px rgba(0, 255, 0, 0.4); }
+
 /* --- FOOTER & FLOATING BUTTON STYLES --- */
 .hacker-footer {
   border-top: 1px dashed #00ff00;
@@ -92,47 +98,79 @@ input:focus, textarea:focus { box-shadow: 0 0 15px rgba(0, 255, 0, 0.4); }
   margin-bottom: 30px;
 }
 
-.footer-right {
-  display: flex;
-  gap: 20px;
-}
-
-.footer-right a {
-  color: #00ff00;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.footer-right a:hover {
-  color: #fff;
-  filter: drop-shadow(0 0 8px #00ff00);
-  transform: translateY(-3px);
-}
+.footer-right { display: flex; gap: 20px; }
+.footer-right a { color: #00ff00; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; }
+.footer-right a:hover { color: #fff; filter: drop-shadow(0 0 8px #00ff00); transform: translateY(-3px); }
 
 .footer-bottom {
-  text-align: center;
-  color: #555; /* Dimmed text for the copyright */
-  font-size: 0.9rem;
-  border-top: 1px solid rgba(0, 255, 0, 0.1);
-  padding-top: 20px;
+  text-align: center; color: #555; font-size: 0.9rem;
+  border-top: 1px solid rgba(0, 255, 0, 0.1); padding-top: 20px;
 }
 
-/* Floating Chat Button */
 .floating-chat {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  z-index: 1000;
+  position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
+  border-radius: 50%; display: flex; justify-content: center; align-items: center;
+  cursor: pointer; z-index: 1000;
 }
-.floating-chat:hover {
-  transform: scale(1.1);
+.floating-chat:hover { transform: scale(1.1); }
+
+
+/* ========================================================
+   GLOBAL MOBILE RESPONSIVENESS PATCH
+   ======================================================== */
+@media (max-width: 768px) {
+  /* 1. Reduce massive padding on small screens */
+  section {
+    padding: 60px 5%;
+    min-height: auto;
+  }
+
+  /* 2. Fix Navigation squishing */
+  nav {
+    flex-direction: column;
+    padding: 15px 5% !important;
+    gap: 15px;
+  }
+  .nav-brand { margin-bottom: 5px; }
+
+  /* 3. Force About section to stack (Image on top, Text below) */
+  .about-container {
+    flex-direction: column-reverse !important;
+    text-align: center;
+    gap: 30px !important;
+  }
+  .about-container .glow-border {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 25px !important;
+  }
+  .about-buttons { justify-content: center; }
+
+  /* Make profile picture slightly smaller on phones */
+  .profile-pic-box {
+    width: 200px !important;
+    height: 200px !important;
+    margin: 0 auto;
+  }
+
+  /* 4. Force Contact Section to stack vertically */
+  .side-by-side-container {
+    flex-direction: column;
+    gap: 25px;
+  }
+
+  /* 5. Center Footer content on mobile */
+  .hacker-footer { padding: 30px 5% 20px 5%; }
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+  }
+  .footer-right { justify-content: center; width: 100%; }
+
+  /* 6. Adjust floating chat button size so it doesn't block UI */
+  .floating-chat {
+    width: 50px; height: 50px;
+    bottom: 20px; right: 20px;
+  }
 }

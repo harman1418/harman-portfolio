@@ -5,7 +5,6 @@ import { Github, Linkedin, Mail, MapPin, Phone, ExternalLink, Terminal, ShieldAl
 import emailjs from '@emailjs/browser';
 import './App.css';
 
-// --- CUSTOM TYPEWRITER COMPONENT ---
 const Typewriter = ({ text, delay = 50 }) => {
     const [currentText, setCurrentText] = useState('');
     useEffect(() => {
@@ -18,7 +17,6 @@ const Typewriter = ({ text, delay = 50 }) => {
     return <span>{currentText}<span className="cursor">_</span></span>;
 };
 
-// --- SYN/ACK BACKGROUND COMPONENT ---
 const NetworkBackground = () => {
     const generateLogs = () => {
         let logs = [];
@@ -36,7 +34,6 @@ const NetworkBackground = () => {
     return <div className="network-logs"><div className="log-scroller">{generateLogs() + '\n' + generateLogs()}</div></div>;
 };
 
-// --- MAIN APP ---
 const App = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const form = useRef();
@@ -46,7 +43,6 @@ const App = () => {
         e.preventDefault();
         setTransmitStatus('TRANSMITTING PAYLOAD...');
 
-        // REPLACE THESE THREE STRINGS WITH YOUR ACTUAL EMAILJS IDs
         emailjs.sendForm(
             'service_hrjpo6g',
             'template_ak2pyjx',
@@ -55,8 +51,8 @@ const App = () => {
         )
             .then((result) => {
                 setTransmitStatus('[+] DELIVERED SUCCESSFULLY');
-                e.target.reset(); // Clears the form
-                setTimeout(() => setTransmitStatus('EXECUTE ./send_mail.sh'), 3000); // Resets button text after 3 seconds
+                e.target.reset();
+                setTimeout(() => setTransmitStatus('EXECUTE ./send_mail.sh'), 3000);
             }, (error) => {
                 setTransmitStatus('[-] TRANSMISSION FAILED');
                 console.log(error.text);
@@ -78,18 +74,17 @@ const App = () => {
             <div className="bg-grid"></div>
             <NetworkBackground />
 
-            {/* STICKY HEADER */}
             <nav style={{
                 position: 'fixed', top: 0, width: '100%', zIndex: 100,
                 backgroundColor: 'rgba(5, 5, 5, 0.85)', backdropFilter: 'blur(10px)',
-                borderBottom: '1px solid rgba(0, 255, 0, 0.3)', padding: '15px 5%',
+                borderBottom: '1px solid rgba(0, 255, 0, 0.3)', padding: '15px 10%',
                 display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxSizing: 'border-box'
             }}>
-                <div style={{ fontWeight: 'bold', fontSize: '1.2rem', color: isScrolled ? '#00ff00' : 'transparent', transition: 'color 0.3s' }} className="glow-text">
+                <div className="glow-text nav-brand" style={{ fontWeight: 'bold', fontSize: '1.2rem', color: isScrolled ? '#00ff00' : 'transparent', transition: 'color 0.3s' }}>
                     <Terminal size={18} style={{ display: 'inline', marginRight: '8px', verticalAlign: 'middle' }}/> HARMANJOT_SINGH
                 </div>
 
-                <div style={{ display: 'flex', gap: '20px', fontSize: '0.9rem', flexWrap: 'wrap' }}>
+                <div className="hide-scrollbar" style={{ display: 'flex', gap: '20px', fontSize: '0.9rem', overflowX: 'auto', whiteSpace: 'nowrap', maxWidth: '100%' }}>
                     {['About', 'Skills', 'Projects', 'Education', 'Certifications', 'Achievements', 'Contact'].map((item) => (
                         <Link key={item} to={item.toLowerCase()} spy={true} smooth={true} offset={-90} duration={500} className="nav-link">
                             ./{item.toLowerCase()}
@@ -98,73 +93,53 @@ const App = () => {
                 </div>
             </nav>
 
-            {/* ABOUT SECTION */}
             <section id="about" style={{ paddingTop: '130px' }}>
-                <motion.div variants={containerVariant} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }}
-                            style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '40px', flexWrap: 'nowrap' }}>
+                <motion.div className="about-container" variants={containerVariant} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }}
+                            style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '40px' }}>
 
                     <motion.div variants={itemVariant} className="glow-border" style={{ padding: '40px', borderRadius: '8px' , flex: '1'}}>
                         <h2 style={{ fontSize: '1.2rem', color: '#a8ffb2', margin: 0 }}><Typewriter text="$ whoami" delay={100} /></h2>
-                        <h1 className="glow-text" style={{ fontSize: '3.5rem', margin: '10px 0' }}>Harmanjot Singh</h1>
-                        <h3 style={{ fontSize: '1.5rem', borderLeft: '4px solid #00ff00', paddingLeft: '15px', marginBottom: '30px', marginTop: 0 }}>
+                        <h1 className="glow-text" style={{ fontSize: 'clamp(2.2rem, 8vw, 3.5rem)', margin: '10px 0' }}>Harmanjot Singh</h1>
+                        <h3 style={{ fontSize: 'clamp(1.1rem, 4vw, 1.5rem)', borderLeft: '4px solid #00ff00', paddingLeft: '15px', marginBottom: '30px', marginTop: 0 }}>
                             Penetration Tester & VAPT Intern
                         </h3>
-                        <p style={{ lineHeight: '1.8', fontSize: '1.1rem', color: '#ccc' }}>
+                        <p style={{ lineHeight: '1.8', fontSize: 'clamp(0.9rem, 3vw, 1.1rem)', color: '#ccc' }}>
                             Cybersecurity professional with hands-on experience in live operations, vulnerability assessments, and incident response. Proficient in OWASP Top 10 testing and network scanning using Nmap, Burp Suite, Metasploit, and Kali Linux.
                         </p>
 
-                        <div style={{ display: 'flex', gap: '20px', marginTop: '30px', alignItems: 'center' }}>
+                        <div className="about-buttons" style={{ display: 'flex', gap: '20px', marginTop: '30px', alignItems: 'center', flexWrap: 'wrap' }}>
                             <motion.a whileHover={{ scale: 1.1 }} href="https://github.com/harman1418" target="_blank" rel="noreferrer" style={{ color: '#00ff00' }}><Github size={30} /></motion.a>
                             <motion.a whileHover={{ scale: 1.1 }} href="https://linkedin.com/in/harmanjotes" target="_blank" rel="noreferrer" style={{ color: '#00ff00' }}><Linkedin size={30} /></motion.a>
 
-                            {/* --- NEW RESUME BUTTON --- */}
                             <motion.a
                                 whileHover={{ scale: 1.05, backgroundColor: 'rgba(0, 255, 0, 0.1)' }}
                                 href="/Harmanjot Resume.pdf"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 style={{
-                                    color: '#00ff00',
-                                    border: '1px solid #00ff00',
-                                    padding: '8px 15px',
-                                    borderRadius: '4px',
-                                    textDecoration: 'none',
-                                    fontSize: '0.9rem',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: '8px',
-                                    marginLeft: '10px'
+                                    color: '#00ff00', border: '1px solid #00ff00', padding: '8px 15px',
+                                    borderRadius: '4px', textDecoration: 'none', fontSize: '0.9rem',
+                                    display: 'flex', alignItems: 'center', gap: '8px', marginLeft: '10px'
                                 }}>
                                 <Terminal size={16} /> View_Resume.pdf
                             </motion.a>
                         </div>
                     </motion.div>
 
-                    {/* Profile Image with Cyber Scanner Overlay */}
-                    <motion.div variants={itemVariant}
+                    <motion.div variants={itemVariant} className="glow-border profile-pic-box"
                                 style={{
                                     width: '260px', height: '260px', flexShrink: 0,
                                     borderRadius: '50%', border: '2px dashed #00ff00',
                                     position: 'relative', overflow: 'hidden',
                                     boxShadow: '0 0 20px rgba(0, 255, 0, 0.2)'
-                                }} className="glow-border">
-
-                        {/* 1. Your actual image goes here */}
+                                }}>
                         <img src="/profile.jpeg" alt="Profile"
-                             style={{
-                                 width: '100%', height: '100%', objectFit: 'cover',
-                                 opacity: 0.9 /* Slight transparency so the laser still looks cool over it */
-                             }}
-                            // Fallback text if image is missing
+                             style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.9 }}
                              onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'flex'; }}
                         />
-
-                        {/* Fallback box if profile.jpg is missing */}
                         <div style={{ position: 'absolute', inset: 0, display: 'none', justifyContent: 'center', alignItems: 'center', textAlign: 'center', color: '#00ff0088' }}>
-                            [ INSERT_IMAGE ]<br/>Put profile.jpg in public/ folder
+                            [ INSERT_IMAGE ]<br/>Put profile.jpeg in public/ folder
                         </div>
-
-                        {/* 2. The animated scanning laser */}
                         <motion.div animate={{ y: [-130, 130] }} transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
                                     style={{
                                         position: 'absolute', top: '50%', left: 0, width: '100%', height: '3px',
@@ -175,10 +150,9 @@ const App = () => {
                 </motion.div>
             </section>
 
-            {/* SKILLS SECTION */}
             <section id="skills">
                 <motion.div variants={containerVariant} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }}>
-                    <motion.h2 variants={itemVariant} className="glow-text" style={{ fontSize: '2.5rem', marginBottom: '40px' }}><Typewriter text="./skills.sh" delay={80} /></motion.h2>
+                    <motion.h2 variants={itemVariant} className="glow-text" style={{ fontSize: 'clamp(1.8rem, 6vw, 2.5rem)', marginBottom: '40px' }}><Typewriter text="./skills.sh" delay={80} /></motion.h2>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px' }}>
                         {[
                             { title: "Languages", tech: "Python, Bash, C++, JavaScript" },
@@ -195,15 +169,14 @@ const App = () => {
                 </motion.div>
             </section>
 
-            {/* PROJECTS SECTION */}
             <section id="projects">
                 <motion.div variants={containerVariant} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }}>
-                    <motion.h2 variants={itemVariant} className="glow-text" style={{ fontSize: '2.5rem', marginBottom: '40px' }}><Typewriter text="./execute_projects" delay={80} /></motion.h2>
+                    <motion.h2 variants={itemVariant} className="glow-text" style={{ fontSize: 'clamp(1.8rem, 6vw, 2.5rem)', marginBottom: '40px' }}><Typewriter text="./execute_projects" delay={80} /></motion.h2>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
 
                         <motion.div variants={itemVariant} className="glow-border" style={{ padding: '35px', borderRadius: '8px', position: 'relative' }}>
                             <ShieldAlert size={40} style={{ position: 'absolute', top: 35, right: 35, opacity: 0.2 }} />
-                            <h3 style={{ fontSize: '1.8rem', color: '#fff', marginTop: 0 }}>Phishing Website Detection</h3>
+                            <h3 style={{ fontSize: 'clamp(1.4rem, 4vw, 1.8rem)', color: '#fff', marginTop: 0 }}>Phishing Website Detection</h3>
                             <p style={{ color: '#a8ffb2', marginBottom: '20px' }}>Machine Learning Classifier | Python | XGBoost</p>
                             <ul style={{ color: '#ccc', lineHeight: '1.8', paddingLeft: '20px' }}>
                                 <li>Built a phishing detection system achieving 96.68% accuracy.</li>
@@ -216,7 +189,7 @@ const App = () => {
                         </motion.div>
 
                         <motion.div variants={itemVariant} className="glow-border" style={{ padding: '35px', borderRadius: '8px' }}>
-                            <h3 style={{ fontSize: '1.8rem', color: '#fff', marginTop: 0 }}>WanderChat</h3>
+                            <h3 style={{ fontSize: 'clamp(1.4rem, 4vw, 1.8rem)', color: '#fff', marginTop: 0 }}>WanderChat</h3>
                             <p style={{ color: '#a8ffb2', marginBottom: '20px' }}>AI-Powered Travel Itinerary Generator | ReactJS | FastAPI | Gemini API</p>
                             <ul style={{ color: '#ccc', lineHeight: '1.8', paddingLeft: '20px' }}>
                                 <li>Developed a web application to generate personalized travel itineraries from natural language input.</li>
@@ -231,24 +204,23 @@ const App = () => {
                 </motion.div>
             </section>
 
-            {/* EDUCATION SECTION */}
             <section id="education">
                 <motion.div variants={containerVariant} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }}>
-                    <motion.h2 variants={itemVariant} className="glow-text" style={{ fontSize: '2.5rem', marginBottom: '40px' }}><Typewriter text="cat /etc/education" delay={80} /></motion.h2>
+                    <motion.h2 variants={itemVariant} className="glow-text" style={{ fontSize: 'clamp(1.6rem, 5vw, 2.5rem)', marginBottom: '40px' }}><Typewriter text="cat /etc/education" delay={80} /></motion.h2>
                     <motion.div variants={itemVariant} className="glow-border" style={{ padding: '35px', borderRadius: '8px' }}>
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '20px' }}>
                             <div style={{ borderLeft: '2px solid #333', paddingLeft: '20px' }}>
-                                <h3 style={{ fontSize: '1.5rem', color: '#fff', margin: '0 0 10px 0' }}>Bachelor of Technology, Computer Science and Engineering</h3>
+                                <h3 style={{ fontSize: 'clamp(1.2rem, 4vw, 1.5rem)', color: '#fff', margin: '0 0 10px 0' }}>Bachelor of Technology, Computer Science and Engineering</h3>
                                 <h4 style={{ color: '#a8ffb2', margin: '0 0 10px 0' }}>Gulzar Group of Institutes</h4>
                                 <p style={{ color: '#ccc', margin: 0 }}>Expected Graduation: 2026</p>
                             </div>
                             <div style={{ borderLeft: '2px solid #333', paddingLeft: '20px' }}>
-                                <h3 style={{ fontSize: '1.5rem', color: '#fff', margin: '0 0 10px 0' }}>Senior Secondary (10+2)</h3>
+                                <h3 style={{ fontSize: 'clamp(1.2rem, 4vw, 1.5rem)', color: '#fff', margin: '0 0 10px 0' }}>Senior Secondary (10+2)</h3>
                                 <h4 style={{ color: '#a8ffb2', margin: '0 0 10px 0' }}>Dayal Public School | PSEB Board</h4>
                                 <p style={{ color: '#ccc', margin: 0 }}>2021 - 2022</p>
                             </div>
                             <div style={{ borderLeft: '2px solid #333', paddingLeft: '20px' }}>
-                                <h3 style={{ fontSize: '1.5rem', color: '#fff', margin: '0 0 10px 0' }}>Matriculation (Class 10)</h3>
+                                <h3 style={{ fontSize: 'clamp(1.2rem, 4vw, 1.5rem)', color: '#fff', margin: '0 0 10px 0' }}>Matriculation (Class 10)</h3>
                                 <h4 style={{ color: '#a8ffb2', margin: '0 0 10px 0' }}>Dayal Public School | PSEB Board</h4>
                                 <p style={{ color: '#ccc', margin: 0 }}>2019 - 2020</p>
                             </div>
@@ -257,11 +229,10 @@ const App = () => {
                 </motion.div>
             </section>
 
-            {/* CERTIFICATIONS SECTION */}
             <section id="certifications">
                 <motion.div variants={containerVariant} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }}>
-                    <motion.h2 variants={itemVariant} className="glow-text" style={{ fontSize: '2.5rem', marginBottom: '40px' }}><Typewriter text="ls /certifications" delay={80} /></motion.h2>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
+                    <motion.h2 variants={itemVariant} className="glow-text" style={{ fontSize: 'clamp(1.8rem, 6vw, 2.5rem)', marginBottom: '40px' }}><Typewriter text="ls /certifications" delay={80} /></motion.h2>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
 
                         {[
                             { name: "Cybersecurity Virtual Internship", issuer: "Palo Alto Networks", image: "/cert1.jpg" },
@@ -270,25 +241,17 @@ const App = () => {
                         ].map((cert, i) => (
 
                             <motion.div variants={itemVariant} key={i} className="glow-border" style={{ padding: '25px', textAlign: 'center', borderRadius: '8px' }}>
-
-                                {/* Wrapped the image block in a clickable anchor tag */}
                                 <a href={cert.image} target="_blank" rel="noreferrer" style={{ display: 'block', width: '100%', height: '180px', backgroundColor: '#050505', border: '1px solid #333', marginBottom: '20px', overflow: 'hidden', cursor: 'pointer' }}>
-
-                                    {/* The actual Image Tag */}
                                     <img src={cert.image} alt={cert.name}
                                          style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.9, transition: 'transform 0.3s ease' }}
                                          onMouseOver={e => e.target.style.transform = 'scale(1.05)'}
                                          onMouseOut={e => e.target.style.transform = 'scale(1)'}
                                          onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'flex'; }}
                                     />
-
-                                    {/* Fallback if you misspell the image name */}
                                     <div style={{ display: 'none', justifyContent: 'center', alignItems: 'center', height: '100%', color: '#555', fontSize: '0.9rem' }}>
                                         [ Missing {cert.image} ]<br/>Place in public/ folder
                                     </div>
-
                                 </a>
-
                                 <h3 style={{ color: '#fff', fontSize: '1.2rem', margin: '0 0 10px 0' }}>{cert.name}</h3>
                                 <p style={{ color: '#a8ffb2', margin: 0 }}>{cert.issuer}</p>
                             </motion.div>
@@ -298,12 +261,11 @@ const App = () => {
                 </motion.div>
             </section>
 
-            {/* ACHIEVEMENTS SECTION */}
             <section id="achievements">
                 <motion.div variants={containerVariant} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }}>
-                    <motion.h2 variants={itemVariant} className="glow-text" style={{ fontSize: '2.5rem', marginBottom: '40px' }}><Typewriter text="./read_logs --achievements" delay={80} /></motion.h2>
+                    <motion.h2 variants={itemVariant} className="glow-text" style={{ fontSize: 'clamp(1.4rem, 5vw, 2.5rem)', marginBottom: '40px' }}><Typewriter text="./read_logs --achievements" delay={80} /></motion.h2>
                     <motion.div variants={itemVariant} className="glow-border" style={{ padding: '35px', borderRadius: '8px' }}>
-                        <ul style={{ color: '#ccc', lineHeight: '2.2', fontSize: '1.1rem', listStyleType: 'square', paddingLeft: '20px', margin: 0 }}>
+                        <ul style={{ color: '#ccc', lineHeight: '2.2', fontSize: 'clamp(0.9rem, 3vw, 1.1rem)', listStyleType: 'square', paddingLeft: '20px', margin: 0 }}>
                             <li>Practiced Capture The Flag (CTF) challenges on TryHackMe and Hack The Box to sharpen exploitation skills.</li>
                             <li>Completed cybersecurity simulations from Deloitte, Mastercard, Palo Alto Networks, and TCS.</li>
                             <li>Maintained security testing scripts and penetration testing projects on GitHub.</li>
@@ -313,43 +275,39 @@ const App = () => {
                 </motion.div>
             </section>
 
-            {/* CONTACT SECTION (Bulletproof Side-by-Side) */}
             <section id="contact" style={{ paddingBottom: '150px' }}>
                 <motion.div variants={containerVariant} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }}>
-                    <motion.h2 variants={itemVariant} className="glow-text" style={{ fontSize: '2.5rem', marginBottom: '30px', marginTop: 0 }}><Typewriter text="ping --contact" delay={80} /></motion.h2>
+                    <motion.h2 variants={itemVariant} className="glow-text" style={{ fontSize: 'clamp(1.8rem, 6vw, 2.5rem)', marginBottom: '30px', marginTop: 0 }}><Typewriter text="ping --contact" delay={80} /></motion.h2>
 
                     <div className="side-by-side-container">
 
-                        {/* Target Information Box */}
                         <motion.div variants={itemVariant} className="glow-border contact-box" style={{ padding: '40px', borderRadius: '8px' }}>
-                            <h3 style={{ marginTop: 0, color: '#fff', fontSize: '1.5rem', marginBottom: '25px', borderBottom: '1px dashed #00ff00', paddingBottom: '10px' }}>Target Information</h3>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '30px', fontSize: '1.1rem' }}>
+                            <h3 style={{ marginTop: 0, color: '#fff', fontSize: 'clamp(1.2rem, 4vw, 1.5rem)', marginBottom: '25px', borderBottom: '1px dashed #00ff00', paddingBottom: '10px' }}>Target Information</h3>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '30px', fontSize: 'clamp(0.9rem, 3vw, 1.1rem)' }}>
 
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-                                    <Mail color="#00ff00" size={28}/>
+                                    <Mail color="#00ff00" size={28} style={{ flexShrink: 0 }}/>
                                     <a href="mailto:harmanjot21754@gmail.com" style={{ color: '#ccc', textDecoration: 'none', transition: 'color 0.2s', wordBreak: 'break-all' }} onMouseOver={e => e.target.style.color='#00ff00'} onMouseOut={e => e.target.style.color='#ccc'}>
                                         harmanjot21754@gmail.com
                                     </a>
                                 </div>
 
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-                                    <Phone color="#00ff00" size={28}/>
+                                    <Phone color="#00ff00" size={28} style={{ flexShrink: 0 }}/>
                                     <a href="tel:+917889169131" style={{ color: '#ccc', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color='#00ff00'} onMouseOut={e => e.target.style.color='#ccc'}>
                                         +91 78891 69131
                                     </a>
                                 </div>
 
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '15px', color: '#ccc' }}>
-                                    <MapPin color="#00ff00" size={28}/> Ludhiana, Punjab, IN
+                                    <MapPin color="#00ff00" size={28} style={{ flexShrink: 0 }}/> Ludhiana, Punjab, IN
                                 </div>
                             </div>
                         </motion.div>
 
-                        {/* Direct Connection Form Box */}
                         <motion.div variants={itemVariant} className="glow-border contact-box" style={{ padding: '40px', borderRadius: '8px' }}>
-                            <h3 style={{ marginTop: 0, color: '#fff', fontSize: '1.5rem', marginBottom: '25px', borderBottom: '1px dashed #00ff00', paddingBottom: '10px' }}>Initiate Direct Connection</h3>
+                            <h3 style={{ marginTop: 0, color: '#fff', fontSize: 'clamp(1.2rem, 4vw, 1.5rem)', marginBottom: '25px', borderBottom: '1px dashed #00ff00', paddingBottom: '10px' }}>Initiate Direct Connection</h3>
                             <form ref={form} onSubmit={sendEmail}>
-                                {/* Note: the 'name' attributes must perfectly match the {{variables}} in your EmailJS template */}
                                 <input type="text" name="user_name" placeholder="Your Name/Alias" required />
                                 <input type="email" name="user_email" placeholder="Your IP/Email" required />
                                 <textarea name="message" rows="5" placeholder="Enter encrypted payload (Message)..." required></textarea>
@@ -370,7 +328,6 @@ const App = () => {
                 </motion.div>
             </section>
 
-            {/* --- FOOTER --- */}
             <footer className="hacker-footer">
                 <div className="footer-content">
                     <div className="footer-left">
@@ -394,7 +351,6 @@ const App = () => {
                 </div>
             </footer>
 
-            {/* --- FLOATING CHAT BUTTON --- */}
             <Link to="contact" spy={true} smooth={true} duration={500} offset={-90} className="floating-chat glow-border">
                 <MessageSquare color="#00ff00" size={28} />
             </Link>
