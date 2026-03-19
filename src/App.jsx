@@ -109,7 +109,7 @@ const App = () => {
 
                         <div className="about-buttons" style={{ display: 'flex', gap: '20px', marginTop: '30px', alignItems: 'center', flexWrap: 'wrap' }}>
                             <motion.a whileHover={{ scale: 1.1 }} href="https://github.com/harman1418" target="_blank" rel="noreferrer" style={{ color: '#00ff00' }}><Github size={30} /></motion.a>
-                            <motion.a whileHover={{ scale: 1.1 }} href="https://linkedin.com/in/harmanjotes" target="_blank" rel="noreferrer" style={{ color: '#00ff00' }}><Linkedin size={30} /></motion.a>
+                            <motion.a whileHover={{ scale: 1.1 }} href="https://linkedin.com/in/harmanjotcs" target="_blank" rel="noreferrer" style={{ color: '#00ff00' }}><Linkedin size={30} /></motion.a>
 
                             <motion.a
                                 whileHover={{ scale: 1.05, backgroundColor: 'rgba(0, 255, 0, 0.1)' }}
@@ -338,7 +338,7 @@ const App = () => {
                     </div>
 
                     <div className="footer-right">
-                        <a href="https://linkedin.com/in/harmanjotes" target="_blank" rel="noreferrer"><Linkedin size={28} /></a>
+                        <a href="https://linkedin.com/in/harmanjotcs" target="_blank" rel="noreferrer"><Linkedin size={28} /></a>
                         <a href="https://github.com/harman1418" target="_blank" rel="noreferrer"><Github size={28} /></a>
                         <a href="mailto:harmanjot21754@gmail.com"><Mail size={28} /></a>
                     </div>
