@@ -174,3 +174,86 @@ input:focus, textarea:focus { box-shadow: 0 0 15px rgba(0, 255, 0, 0.4); }
     bottom: 20px; right: 20px;
   }
 }
+
+/* --- SKILLS ZIG-ZAG TIMELINE --- */
+.skills-timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 50px; /* Space between rows */
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* The central glowing wire */
+.skills-wire {
+  position: absolute;
+  top: 50px;
+  bottom: 50px;
+  left: 50%;
+  width: 2px;
+  background-color: rgba(0, 255, 0, 0.3); /* Thin green line */
+  transform: translateX(-50%);
+  z-index: 0;
+}
+
+/* The neon moving dot */
+.neon-dot {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  background-color: #fff;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 10px 3px #00ff00, 0 0 20px #00ff00;
+  z-index: 1;
+  animation: moveDot 4s linear infinite;
+}
+
+@keyframes moveDot {
+  0% { top: 0; opacity: 0; }
+  5% { opacity: 1; }
+  95% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+/* Zig-Zag Item Alignment */
+.skill-row {
+  display: flex;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+/* Left side items (1st, 3rd) */
+.skill-row.left {
+  justify-content: flex-start;
+}
+
+/* Right side items (2nd, 4th) */
+.skill-row.right {
+  justify-content: flex-end;
+}
+
+/* Sizing the cards */
+.skill-card-wrapper {
+  width: 45%; /* Leave room for the center line */
+}
+
+/* Mobile adjustments for the timeline */
+@media (max-width: 768px) {
+  .skills-wire, .neon-dot {
+    left: 20px; /* Move wire to the left on small screens */
+  }
+  
+  .skill-row {
+    justify-content: flex-end !important; /* Push all cards to the right */
+  }
+
+  .skill-card-wrapper {
+    width: calc(100% - 40px); /* Fill remaining space */
+  }
+}
