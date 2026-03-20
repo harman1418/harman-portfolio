@@ -175,85 +175,53 @@ input:focus, textarea:focus { box-shadow: 0 0 15px rgba(0, 255, 0, 0.4); }
   }
 }
 
-/* --- SKILLS ZIG-ZAG TIMELINE --- */
-.skills-timeline {
+/* --- SKILLS HORIZONTAL ZIG-ZAG --- */
+.skills-scroll-wrapper {
+  width: 100%;
+  overflow-x: auto; /* Allows horizontal swipe on mobile */
+  padding: 20px 0 40px 0;
+}
+
+.skills-horizontal {
   position: relative;
   display: flex;
-  flex-direction: column;
-  gap: 50px; /* Space between rows */
-  width: 100%;
-  max-width: 900px;
+  justify-content: space-around;
+  align-items: center;
+  height: 350px;
+  width: 1000px; /* Fixed width perfectly maps to our SVG background */
+  max-width: 1000px;
   margin: 0 auto;
 }
 
-/* The central glowing wire */
-.skills-wire {
-  position: absolute;
-  top: 50px;
-  bottom: 50px;
-  left: 50%;
-  width: 2px;
-  background-color: rgba(0, 255, 0, 0.3); /* Thin green line */
-  transform: translateX(-50%);
-  z-index: 0;
-}
-
-/* The neon moving dot */
-.neon-dot {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 8px;
-  height: 8px;
-  background-color: #fff;
-  border-radius: 50%;
-  transform: translateX(-50%);
-  box-shadow: 0 0 10px 3px #00ff00, 0 0 20px #00ff00;
-  z-index: 1;
-  animation: moveDot 4s linear infinite;
-}
-
-@keyframes moveDot {
-  0% { top: 0; opacity: 0; }
-  5% { opacity: 1; }
-  95% { opacity: 1; }
-  100% { top: 100%; opacity: 0; }
-}
-
-/* Zig-Zag Item Alignment */
-.skill-row {
-  display: flex;
-  width: 100%;
+.skill-box {
+  width: 220px;
   position: relative;
   z-index: 2;
 }
 
-/* Left side items (1st, 3rd) */
-.skill-row.left {
-  justify-content: flex-start;
+/* 1st and 3rd go UP */
+.skill-box.top { 
+  transform: translateY(-60px); 
 }
 
-/* Right side items (2nd, 4th) */
-.skill-row.right {
-  justify-content: flex-end;
+/* 2nd and 4th go DOWN */
+.skill-box.bottom { 
+  transform: translateY(60px); 
 }
 
-/* Sizing the cards */
-.skill-card-wrapper {
-  width: 45%; /* Leave room for the center line */
+/* Ensure the background of the cards blocks the wire behind them */
+.skill-box .glow-border {
+  background-color: #050505; 
+  position: relative;
 }
 
-/* Mobile adjustments for the timeline */
-@media (max-width: 768px) {
-  .skills-wire, .neon-dot {
-    left: 20px; /* Move wire to the left on small screens */
+/* If the screen is smaller than 1000px, stick it to the left so the user can scroll naturally */
+@media (max-width: 1000px) {
+  .skills-horizontal {
+    margin: 0;
   }
-  
-  .skill-row {
-    justify-content: flex-end !important; /* Push all cards to the right */
-  }
-
-  .skill-card-wrapper {
-    width: calc(100% - 40px); /* Fill remaining space */
+  .skills-scroll-wrapper {
+    padding-left: 20px;
+    padding-right: 20px;
   }
 }
