@@ -174,7 +174,7 @@ const App = () => {
                     <motion.h2 variants={itemVariant} className="glow-text" style={{ fontSize: 'clamp(1.8rem, 6vw, 2.5rem)', marginBottom: '40px' }}><Typewriter text="./execute_projects" delay={80} /></motion.h2>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
 
-                        {/* --- VULNFORGE ADDED HERE --- */}
+                                                {/* --- VULNFORGE ADDED HERE --- */}
                         <motion.div variants={itemVariant} className="glow-border" style={{ padding: '35px', borderRadius: '8px', position: 'relative' }}>
                             <Terminal size={40} style={{ position: 'absolute', top: 35, right: 35, opacity: 0.2 }} />
                             <h3 style={{ fontSize: 'clamp(1.4rem, 4vw, 1.8rem)', color: '#fff', marginTop: 0 }}>VulnForge: Autonomous Penetration Testing Platform</h3>
@@ -184,10 +184,18 @@ const App = () => {
                                 <li>Integrated Cloudflare's Llama-3 AI to analyze raw vulnerabilities and autonomously map findings to the OWASP Top 10.</li>
                                 <li>Dynamically generates enterprise-grade PDF security reports and features an in-browser client-side Crypto Lab.</li>
                             </ul>
-                            <a href="https://github.com/harman1418/vulnforge" target="_blank" rel="noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', color: '#00ff00', textDecoration: 'none', marginTop: '15px' }}>
-                                <ExternalLink size={18} /> View Source Code
-                            </a>
+                            
+                            {/* UPDATED LINK & DISCLAIMER */}
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginTop: '15px', flexWrap: 'wrap' }}>
+                                <a href="https://vulnforge.app" target="_blank" rel="noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: '#00ff00', textDecoration: 'none', fontWeight: '500' }}>
+                                    <ExternalLink size={18} /> Visit Live Platform
+                                </a>
+                                <span style={{ color: '#888', fontSize: '0.85rem', fontStyle: 'italic', borderLeft: '1px solid #333', paddingLeft: '15px' }}>
+                                    *Source code is private due to proprietary security tooling.
+                                </span>
+                            </div>
                         </motion.div>
+
 
                         <motion.div variants={itemVariant} className="glow-border" style={{ padding: '35px', borderRadius: '8px', position: 'relative' }}>
                             <ShieldAlert size={40} style={{ position: 'absolute', top: 35, right: 35, opacity: 0.2 }} />
