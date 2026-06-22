@@ -227,7 +227,7 @@ const App = () => {
                             <div style={{ borderLeft: '2px solid #333', paddingLeft: '20px' }}>
                                 <h3 style={{ fontSize: 'clamp(1.2rem, 4vw, 1.5rem)', color: '#fff', margin: '0 0 10px 0' }}>Bachelor of Technology, Computer Science and Engineering</h3>
                                 <h4 style={{ color: '#a8ffb2', margin: '0 0 10px 0' }}>Gulzar Group of Institutes</h4>
-                                <p style={{ color: '#ccc', margin: 0 }}>Expected Graduation: 2026</p>
+                                <p style={{ color: '#ccc', margin: 0 }}>2022 - 2026</p>
                             </div>
                             <div style={{ borderLeft: '2px solid #333', paddingLeft: '20px' }}>
                                 <h3 style={{ fontSize: 'clamp(1.2rem, 4vw, 1.5rem)', color: '#fff', margin: '0 0 10px 0' }}>Senior Secondary (10+2)</h3>
